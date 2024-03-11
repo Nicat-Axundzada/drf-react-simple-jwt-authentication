@@ -3,14 +3,18 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
 export default function Header() {
-  let { name } = useContext(AuthContext);
+  let { user, logoutUser } = useContext(AuthContext);
   return (
     <>
       <Link to="/">Home</Link>
       <span> | </span>
-      <Link to="/login">Login</Link>
+      {user ? (
+        <p onClick={logoutUser}>Logout</p>
+      ) : (
+        <Link to="/login">Login</Link>
+      )}
 
-      <p>Hello {name}</p>
+      {user && <p>Hello {user.username}</p>}
     </>
   );
 }
